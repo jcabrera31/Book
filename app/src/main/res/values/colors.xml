@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="title">#FF4081</color>
     <color name="primary_text_material_light">#0096ca</color>
+    <color name="light_blue">#FF0096CA</color>
 </resources>

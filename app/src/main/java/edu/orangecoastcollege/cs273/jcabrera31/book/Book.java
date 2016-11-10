@@ -10,6 +10,15 @@ public class Book {
     private String mTitle;
     private String mDescription;
     private String mAuthor;
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
     private String mISBN;
     private boolean isAvailable;
 

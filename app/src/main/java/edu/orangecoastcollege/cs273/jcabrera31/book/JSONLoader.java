@@ -26,7 +26,7 @@ public class JSONLoader {
     public static ArrayList<Book> loadJSONFromAsset(Context context) throws IOException {
         ArrayList<Book> allBooks = new ArrayList<>();
         String json = null;
-            InputStream is = context.getAssets().open("MusicEvents.json");
+            InputStream is = context.getAssets().open("Books.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -35,20 +35,19 @@ public class JSONLoader {
 
         try {
             JSONObject jsonRootObject = new JSONObject(json);
-            JSONArray allMusicEventsJSON = jsonRootObject.getJSONArray("Books");
-            int numberOfEvents = allMusicEventsJSON.length();
+            JSONArray allBooksInJSON = jsonRootObject.getJSONArray("Books");
+            int numberOfEvents = allBooksInJSON.length();
 
             for (int i = 0; i < numberOfEvents; i++) {
-                JSONObject musicEventJSON = allMusicEventsJSON.getJSONObject(i);
+                JSONObject bookDataJSON = allBooksInJSON.getJSONObject(i);
 
                 Book book = new Book();
-                book.setmTitle(musicEventJSON.getString("Title"));
-
-                book.setmDescription(musicEventJSON.getString("Desc"));
-                book.setmISBN(musicEventJSON.getString("ISBN"));
-                book.setmAuthor(musicEventJSON.getString("Author"));
-                book.setmISBN(musicEventJSON.getString("Location"));
-                book.setmImageName(musicEventJSON.getString("ImageName"));
+                book.setmTitle(bookDataJSON.getString("Title"));
+                book.setmAuthor(bookDataJSON.getString("Author"));
+                book.setmDescription(bookDataJSON.getString("Desc"));
+                book.setmISBN(bookDataJSON.getString("ISBN"));
+                book.setmImageName(bookDataJSON.getString("ImageName"));
+                //book.setAvailable(musicEventJSON.getString("IsAvail"));
 
                 allBooks.add(book);
         }
