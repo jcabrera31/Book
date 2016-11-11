@@ -1,10 +1,9 @@
 package edu.orangecoastcollege.cs273.jcabrera31.book;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -15,11 +14,12 @@ import java.util.ArrayList;
 /**
  * Controller
  */
-public class BookListActivity extends ListActivity {
+public class BookListActivity extends AppCompatActivity {
 
     ListView bookListView;
     Context context = this;
     ArrayList<Book> allbooks;
+    BookListAdapter bookListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class BookListActivity extends ListActivity {
         setContentView(R.layout.activity_book);
 
 
-        bookListView = (ListView) findViewById(R.id.bookListView);
+
 
 
         try {
@@ -36,12 +36,13 @@ public class BookListActivity extends ListActivity {
         } catch (IOException ex) {
             Log.e("OCC Library - BookList", "Error loading JSON data" + ex.getMessage());
         }
-
-        setListAdapter(new BookListAdapter(context, R.layout.listview_searchresults, allbooks));
+        bookListAdapter = new BookListAdapter(this, R.layout.listview_searchresults, allbooks);
+        bookListView = (ListView) findViewById(R.id.bookListView);
     }
 
 
-    @Override
+
+
     protected void onListItemClick(ListView l, View v, int pos, long id)
     {
 
