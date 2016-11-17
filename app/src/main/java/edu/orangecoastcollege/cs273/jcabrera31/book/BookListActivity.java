@@ -41,9 +41,9 @@ public class BookListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
 
-        imageURI = getUriToResource(this, R.drawable.none);
+        imageURI = getUriToResource(this, R.drawable.book);
 
-        //this.deleteDatabase(DBHelper.DATABASE_NAME);
+        this.deleteDatabase(DBHelper.DATABASE_NAME);
         db = new DBHelper(this);
 
         //testing
@@ -62,7 +62,7 @@ public class BookListActivity extends AppCompatActivity {
     }
 
 
-    public void viewDetails(View view)
+    public void viewBookDetails(View view)
     {
         if(view instanceof LinearLayout)
         {

@@ -27,11 +27,12 @@ public class BookDetailsActivity extends AppCompatActivity {
         String title = intent.getStringExtra("Title");
         String desc = intent.getStringExtra("Desc");
         String author = intent.getStringExtra("Author");
-        String isbn = intent.getStringExtra("ISBN");
+        int isbn = intent.getIntExtra("ISBN",0);
+
         bookTitleTextView.setText(title);
         bookDescTextView.setText(desc);
         bookAuthorTextView.setText(author);
-        bookISBNView.setText(isbn);
+        bookISBNView.setText(String.valueOf(isbn));
         //isAvailTextView.setText();
         bookImageView.setImageURI(Uri.parse(intent.getStringExtra("ImageUri")));
 
