@@ -1,5 +1,7 @@
 package edu.orangecoastcollege.cs273.jcabrera31.book;
 
+import android.net.Uri;
+
 /**
  * Model
  */
@@ -7,9 +9,27 @@ package edu.orangecoastcollege.cs273.jcabrera31.book;
 public class Book {
 
 
+    private int mId;
     private String mTitle;
     private String mDescription;
     private String mAuthor;
+    private int mISBN;
+    private boolean isAvailable;
+    private Uri mImageUri;
+
+    public Book(int mId, String mTitle, String mDescription, String mAuthor, int mISBN, boolean isAvailable, Uri mImageUri) {
+        this(mTitle,  mDescription,  mAuthor,  mISBN,  isAvailable,  mImageUri);
+        this.mId = mId;
+    }
+
+    public Book(String mTitle, String mDescription, String mAuthor, int mISBN, boolean isAvailable, Uri mImageUri) {
+        this.mTitle = mTitle;
+        this.mDescription = mDescription;
+        this.mAuthor = mAuthor;
+        this.mISBN = mISBN;
+        this.isAvailable = isAvailable;
+        this.mImageUri = mImageUri;
+    }
 
     public boolean isAvailable() {
         return isAvailable;
@@ -19,48 +39,49 @@ public class Book {
         isAvailable = available;
     }
 
-    private String mISBN;
-    private boolean isAvailable;
-
-    public String getmTitle() {
+    public String getTitle() {
         return mTitle;
     }
 
-    public void setmTitle(String mTitle) {
+    public void setTitle(String mTitle) {
         this.mTitle = mTitle;
     }
 
-    public String getmDescription() {
+    public String getDescription() {
         return mDescription;
     }
 
-    public void setmDescription(String mDescription) {
+    public void setDescription(String mDescription) {
         this.mDescription = mDescription;
     }
 
-    public String getmAuthor() {
+    public String getAuthor() {
         return mAuthor;
     }
 
-    public void setmAuthor(String mAuthor) {
+    public void setAuthor(String mAuthor) {
         this.mAuthor = mAuthor;
     }
 
-    public String getmISBN() {
+
+    public Uri getImageUri() {
+        return mImageUri;
+    }
+
+    public void setImageUri(Uri mImageUri) {
+        this.mImageUri = mImageUri;
+    }
+    public int getId() {
+        return mId;
+    }
+
+    public int getISBN() {
         return mISBN;
     }
 
-    public void setmISBN(String mISBN) {
+    public void setISBN(int mISBN) {
         this.mISBN = mISBN;
     }
 
-    public String getmImageName() {
-        return mImageName;
-    }
 
-    public void setmImageName(String mImageName) {
-        this.mImageName = mImageName;
-    }
-
-    private String mImageName;
 }

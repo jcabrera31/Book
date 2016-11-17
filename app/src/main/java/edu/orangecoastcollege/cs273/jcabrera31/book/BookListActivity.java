@@ -1,69 +1,110 @@
 package edu.orangecoastcollege.cs273.jcabrera31.book;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.AnyRes;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Controller
+ *
  */
 public class BookListActivity extends AppCompatActivity {
 
-    ListView bookListView;
+
     Context context = this;
     ArrayList<Book> allbooks;
+
+
+    //newStuff
+
+    private DBHelper db;
     BookListAdapter bookListAdapter;
+    List<Book> bookList;
+    ListView bookListView;
+    private Uri imageURI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
 
+        imageURI = getUriToResource(this, R.drawable.none);
 
+        //this.deleteDatabase(DBHelper.DATABASE_NAME);
+        db = new DBHelper(this);
 
+        //testing
+        db.addBook(new Book("Calculus: Derivatives and More", "Textbook for learning Calculus", "Gary Coleman", 123456798, true, imageURI));
 
+        bookList = db.getAllBooks();
 
-        try {
-
-            allbooks = JSONLoader.loadJSONFromAsset(context);
-        } catch (IOException ex) {
-            Log.e("OCC Library - BookList", "Error loading JSON data" + ex.getMessage());
-        }
-        bookListAdapter = new BookListAdapter(this, R.layout.listview_searchresults, allbooks);
+        //instantiate the ListAdapter object with context, layout and List info
+        //connect the listView to the correct widget
+        //connect the adapter to the listView
+        bookListAdapter = new BookListAdapter(this, R.layout.book_list_item, bookList);
         bookListView = (ListView) findViewById(R.id.bookListView);
+        bookListView.setAdapter(bookListAdapter);
+
+
     }
 
 
-
-
-    protected void onListItemClick(ListView l, View v, int pos, long id)
+    public void viewDetails(View view)
     {
+        if(view instanceof LinearLayout)
+        {
+            LinearLayout selectedLayout = (LinearLayout) view;
+            Book selected = (Book) selectedLayout.getTag();
+            Log.i("Pet Protector", selected.toString()); //to log object
 
-        Book clickedEvent = allbooks.get(pos);
+            Intent detailsIntent = new Intent(this, BookDetailsActivity.class);
+            detailsIntent.putExtra("Title", selected.getTitle());
+            detailsIntent.putExtra("Author", selected.getAuthor());
+            detailsIntent.putExtra("Desc", selected.getDescription());
+            detailsIntent.putExtra("ISBN", selected.getISBN());
+            detailsIntent.putExtra("Avail", selected.isAvailable());
 
-        String title = clickedEvent.getmTitle();
-        String desc = clickedEvent.getmDescription();
-        String author = clickedEvent.getmAuthor();
-        String isbn = clickedEvent.getmISBN();
+            detailsIntent.putExtra("ImageUri", selected.getImageUri().toString());
 
-        String imageName = clickedEvent.getmImageName();
+            startActivity(detailsIntent);
 
-        Intent intent = new Intent(this, BookDetailsActivity.class);
-        intent.putExtra("title", title);
-        intent.putExtra("desc", desc);
-        intent.putExtra("author", author);
-        intent.putExtra("ISBN", isbn);
+        }
+    }
 
-        intent.putExtra("ImageName", imageName);
 
-        startActivity(intent);
+    /**
+     *
+     * @param context
+     * @param resId
+     * @return Uri to resource by given id
+     * @throws Resources.NotFoundException
+     */
+    public static Uri getUriToResource(@NonNull Context context, @AnyRes int resId)
+            throws Resources.NotFoundException{
+        /**
+         * Return a Resource instance for your application's package.
+         */
+        Resources res = context.getResources();
 
+        /**
+         * Return Uri
+         */
+        return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
+                +"://" + res.getResourcePackageName(resId)
+                +'/' + res.getResourceTypeName(resId)
+                +'/' + res.getResourceEntryName(resId));
     }
 }

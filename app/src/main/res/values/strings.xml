@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OCC Library</string>
+    <string name="app_name">Library</string>
     <string name="invite_friends">Invite Friends</string>
     <string name="reserve_title">Reserve Book</string>
     <string name="search_bookTitle">Search Book</string>
