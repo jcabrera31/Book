@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/linearLayoutBookListItem"
     android:layout_height="wrap_content"
@@ -14,7 +16,8 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="6dp"
         android:src="@mipmap/ic_launcher"
-        android:layout_weight="0">
+        android:layout_weight="0"
+        app:srcCompat="@drawable/book">
     </ImageView>
 
     <LinearLayout
@@ -23,19 +26,49 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:text="TextView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
             android:id="@+id/listItemTitleTextView"
-            android:textSize="0sp" />
+            android:textSize="16sp"
+            android:text="TextView" />
 
-        <TextView
-            android:text="TextView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:id="@+id/listItemDescTextView"
-            android:layout_weight="1" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/textView"
+                android:layout_weight="1"
+                android:text="@string/quantity"
+                android:textSize="10sp"
+                android:textAlignment="viewStart" />
+
+            <TextView
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/listItemQtyTextView"
+                android:layout_weight="1"
+                android:textSize="10sp"
+                android:layout_marginRight="5dp"
+                android:textAlignment="viewStart" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/listItemDescTextView"
+                android:layout_weight="1"
+                android:textSize="10sp"
+                android:text="TextView"
+                android:textAlignment="viewStart" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

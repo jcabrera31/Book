@@ -15,7 +15,7 @@ import java.util.ArrayList;
 class DBHelper extends SQLiteOpenHelper {
 
     //TASK 1: DEFINE THE DATABASE VERSION, NAME AND TABLE NAME
-    static final String DATABASE_NAME = "LibraryBooks";
+    static final String DATABASE_NAME = "ReservedTextBooks";
     private static final String DATABASE_TABLE = "Books";
     private static final int DATABASE_VERSION = 1;
 
@@ -26,7 +26,7 @@ class DBHelper extends SQLiteOpenHelper {
     private static final String FIELD_DESCRIPTION = "description";
     private static final String FIELD_AUTHOR = "author";
     private static final String FIELD_ISBN = "isbn";
-    private static final String FIELD_AVAILABLE = "available";
+    private static final String FIELD_QTY_AVAIL = "quantity";
     private static final String FIELD_IMAGE_URI = "image_uri";
 
 
@@ -42,7 +42,7 @@ class DBHelper extends SQLiteOpenHelper {
                 + FIELD_DESCRIPTION + " TEXT, "
                 + FIELD_AUTHOR + " TEXT, "
                 + FIELD_ISBN + " INTEGER, "
-                + FIELD_AVAILABLE + " INTEGER, "
+                + FIELD_QTY_AVAIL + " INTEGER, "
                 + FIELD_IMAGE_URI + " TEXT" + ")";
         database.execSQL (table);
     }
@@ -66,7 +66,7 @@ class DBHelper extends SQLiteOpenHelper {
         values.put(FIELD_DESCRIPTION, book.getDescription());
         values.put(FIELD_AUTHOR, book.getAuthor());
         values.put(FIELD_ISBN, book.getISBN());
-        values.put(FIELD_AVAILABLE, (book.isAvailable())? 1:0);
+        values.put(FIELD_QTY_AVAIL, book.getQty());
         values.put(FIELD_IMAGE_URI, book.getImageUri().toString());
 
         // INSERT THE ROW IN THE TABLE
@@ -82,7 +82,7 @@ class DBHelper extends SQLiteOpenHelper {
         //Cursor cursor = database.rawQuery(queryList, null);
         Cursor cursor = database.query(
                 DATABASE_TABLE,
-                new String[]{KEY_FIELD_ID, FIELD_TITLE, FIELD_DESCRIPTION, FIELD_AUTHOR, FIELD_ISBN, FIELD_AVAILABLE, FIELD_IMAGE_URI},
+                new String[]{KEY_FIELD_ID, FIELD_TITLE, FIELD_DESCRIPTION, FIELD_AUTHOR, FIELD_ISBN, FIELD_QTY_AVAIL, FIELD_IMAGE_URI},
                 null,
                 null,
                 null, null, null, null );
@@ -96,8 +96,8 @@ class DBHelper extends SQLiteOpenHelper {
                                 cursor.getString(2),//desc
                                 cursor.getString(3),//author
                                 cursor.getInt(4),//isbn
-                                (cursor.getInt(5) ==1),//available
-                                Uri.parse(cursor.getString(4))//imageUri
+                                cursor.getInt(5),//available
+                                Uri.parse(cursor.getString(6))//imageUri
                         );
                 bookList.add(book);
             } while (cursor.moveToNext());
@@ -105,7 +105,7 @@ class DBHelper extends SQLiteOpenHelper {
         return bookList;
     }
 
-    public void deleteTask(Book book){
+    public void deleteBook(Book book){
         SQLiteDatabase db = this.getWritableDatabase();
 
         // DELETE THE TABLE ROW
@@ -129,7 +129,7 @@ class DBHelper extends SQLiteOpenHelper {
         values.put(FIELD_DESCRIPTION, book.getDescription());
         values.put(FIELD_AUTHOR, book.getAuthor());
         values.put(FIELD_ISBN, book.getISBN());
-        values.put(FIELD_AVAILABLE, (book.isAvailable())? 1:0);
+        values.put(FIELD_QTY_AVAIL, book.getQty());
         values.put(FIELD_IMAGE_URI, book.getImageUri().toString());
 
         db.update(DATABASE_TABLE, values, KEY_FIELD_ID + " = ?",
@@ -142,7 +142,7 @@ class DBHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(
                 DATABASE_TABLE,
-                new String[]{KEY_FIELD_ID, FIELD_TITLE, FIELD_DESCRIPTION, FIELD_AUTHOR, FIELD_ISBN, FIELD_AVAILABLE, FIELD_IMAGE_URI},
+                new String[]{KEY_FIELD_ID, FIELD_TITLE, FIELD_DESCRIPTION, FIELD_AUTHOR, FIELD_ISBN, FIELD_QTY_AVAIL, FIELD_IMAGE_URI},
                 KEY_FIELD_ID + "=?",
                 new String[]{String.valueOf(id)},
                 null, null, null, null );
@@ -156,8 +156,8 @@ class DBHelper extends SQLiteOpenHelper {
                         cursor.getString(2),//desc
                         cursor.getString(3),//author
                         cursor.getInt(4),//isbn
-                        (cursor.getInt(5) ==1),//available
-                        Uri.parse(cursor.getString(4))//imageUri
+                        cursor.getInt(5),//available
+                        Uri.parse(cursor.getString(6))//imageUri
                 );
 
         db.close();

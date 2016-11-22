@@ -6,7 +6,14 @@
     <string name="search_title">Search Book Title</string>
     <string name="search_author">Search Author</string>
     <string name="search_isbn">Search ISBN</string>
-    <string name="search_button">Search</string>
+    <string name="button_search">Search</string>
+    <string name="quantity">Quantity: </string>
+    <string name="details_quantity">Quantity Available: </string>
+    <string name="author">Author: </string>
+    <string name="description">Description: </string>
+    <string name="isbn">ISBN: </string>
+    <string name="button_select_book">Request to Checkout</string>
+    <string name="zero">0</string>
 
 
 </resources>

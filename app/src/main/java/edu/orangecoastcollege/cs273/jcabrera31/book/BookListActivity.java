@@ -23,13 +23,6 @@ import java.util.List;
  */
 public class BookListActivity extends AppCompatActivity {
 
-
-    Context context = this;
-    ArrayList<Book> allbooks;
-
-
-    //newStuff
-
     private DBHelper db;
     BookListAdapter bookListAdapter;
     List<Book> bookList;
@@ -47,7 +40,7 @@ public class BookListActivity extends AppCompatActivity {
         db = new DBHelper(this);
 
         //testing
-        db.addBook(new Book("Calculus: Derivatives and More", "Textbook for learning Calculus", "Gary Coleman", 123456798, true, imageURI));
+        db.addBook(new Book("Calculus: Derivatives and More", "Textbook for learning Calculus", "Gary Coleman", 123456798, 1, imageURI));
 
         bookList = db.getAllBooks();
 
@@ -58,10 +51,12 @@ public class BookListActivity extends AppCompatActivity {
         bookListView = (ListView) findViewById(R.id.bookListView);
         bookListView.setAdapter(bookListAdapter);
 
-
     }
 
-
+    /**
+     *
+     * @param view
+     */
     public void viewBookDetails(View view)
     {
         if(view instanceof LinearLayout)
@@ -75,8 +70,7 @@ public class BookListActivity extends AppCompatActivity {
             detailsIntent.putExtra("Author", selected.getAuthor());
             detailsIntent.putExtra("Desc", selected.getDescription());
             detailsIntent.putExtra("ISBN", selected.getISBN());
-            detailsIntent.putExtra("Avail", selected.isAvailable());
-
+            detailsIntent.putExtra("Quantity", selected.getQty());
             detailsIntent.putExtra("ImageUri", selected.getImageUri().toString());
 
             startActivity(detailsIntent);

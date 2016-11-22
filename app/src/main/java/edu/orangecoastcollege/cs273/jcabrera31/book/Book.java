@@ -14,29 +14,29 @@ public class Book {
     private String mDescription;
     private String mAuthor;
     private int mISBN;
-    private boolean isAvailable;
+    private int qtyAvail;
     private Uri mImageUri;
 
-    public Book(int mId, String mTitle, String mDescription, String mAuthor, int mISBN, boolean isAvailable, Uri mImageUri) {
-        this(mTitle,  mDescription,  mAuthor,  mISBN,  isAvailable,  mImageUri);
+    public Book(int mId, String mTitle, String mDescription, String mAuthor, int mISBN, int qty, Uri mImageUri) {
+        this(mTitle,  mDescription,  mAuthor,  mISBN,  qty,  mImageUri);
         this.mId = mId;
     }
 
-    public Book(String mTitle, String mDescription, String mAuthor, int mISBN, boolean isAvailable, Uri mImageUri) {
+    public Book(String mTitle, String mDescription, String mAuthor, int mISBN, int qty, Uri mImageUri) {
         this.mTitle = mTitle;
         this.mDescription = mDescription;
         this.mAuthor = mAuthor;
         this.mISBN = mISBN;
-        this.isAvailable = isAvailable;
+        this.qtyAvail = qty;
         this.mImageUri = mImageUri;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
+    public int getQty() {
+        return qtyAvail;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    public void setQty(int qtyAvail) {
+        this.qtyAvail = qtyAvail;
     }
 
     public String getTitle() {
