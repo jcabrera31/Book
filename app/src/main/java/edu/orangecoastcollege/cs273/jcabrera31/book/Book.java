@@ -17,6 +17,7 @@ public class Book {
     private int qtyAvail;
     private Uri mImageUri;
 
+
     public Book(int mId, String mTitle, String mDescription, String mAuthor, int mISBN, int qty, Uri mImageUri) {
         this(mTitle,  mDescription,  mAuthor,  mISBN,  qty,  mImageUri);
         this.mId = mId;
